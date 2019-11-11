@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = express();
-
+const port = process.env.PORT || 3000;
 
 // Import routes
 const authRoute = require('./routes/auth');
@@ -26,4 +26,4 @@ app.use(express.json());
 app.use('/api/user',authRoute);
 app.use('/api/posts',postRoute);
 
-app.listen(3000, () => console.log('Server up and running'));
+app.listen(port, () => console.log('Server up and running'));
