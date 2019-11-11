@@ -37,7 +37,22 @@ return schema.validate(data);
 
 };
 
+// Add New Post Validation 
+const addPostValidation = (data) =>{
+    const schema = Joi.object({
+        author: Joi.string()
+                .required(),
+        title: Joi.string()
+            .min(4)
+            .required(),
+        description: Joi.string()
+});
+
+return schema.validate(data);
+
+};
 
 
 module.exports.signUpValidation = signUpValidation;
 module.exports.loginValidation  = loginValidation;
+module.exports.addPostValidation  = addPostValidation;

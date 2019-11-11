@@ -6,10 +6,9 @@ const port = process.env.PORT || 3000;
 
 // Import routes
 const authRoute = require('./routes/auth');
-const postRoute = require('./routes/posts');
+const postRoute = require('./routes/postRoutes');
 
 dotenv.config();
-
 
 
 // Connect to database
