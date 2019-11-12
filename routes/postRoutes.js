@@ -4,7 +4,11 @@ const verify = require('./verifyToken');
 const {addPostValidation} = require('../validation');
 
 // Get Routes
-router.get('/',verify,(req,res) =>{
+// Get posts with university name
+router.get('/',verify,async (req,res) =>{
+    console.log(req.body.university);
+    const posts = await Post.find({"university":req.body.university});
+    console.log(posts);
     res.send(req.user);
 });
 
@@ -14,7 +18,9 @@ router.post('/addPost',verify,async (req,res) =>{
     
     //  Validate the input
     const {error} = addPostValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message)
+    if(error) return res.status(400).send({
+        "message" : error.details[0].message
+    })
     
     // Create new post
     const post = new Post({
@@ -23,13 +29,15 @@ router.post('/addPost',verify,async (req,res) =>{
         description: req.body.description
     });
 
+    // Save the post to database
     try{
- 
         const savedPost = await post.save();
         res.send(savedPost);
  
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).send({
+            "message" : err
+        });
     }
 
    

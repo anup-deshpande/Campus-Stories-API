@@ -13,6 +13,8 @@ const signUpValidation = (data) =>{
             .email(),
         password: Joi.string()
             .min(6)
+            .required(),
+        university: Joi.string()
             .required()
     });
 
@@ -40,8 +42,6 @@ return schema.validate(data);
 // Add New Post Validation 
 const addPostValidation = (data) =>{
     const schema = Joi.object({
-        author: Joi.string()
-                .required(),
         title: Joi.string()
             .min(4)
             .required(),
