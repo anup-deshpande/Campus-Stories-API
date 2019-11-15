@@ -2,20 +2,16 @@ const router = require('express').Router();
 const User = require('../model/User');
 const Post = require('../model/Post');
 const verify = require('./verifyToken');
-const {addPostValidation, getPostValidation} = require('../validation');
+const {addPostValidation} = require('../validation');
 
 // Get Routes
 // Get posts with university name
 router.get('/',verify,async (req,res) =>{
 
-    //  Validate the input
-    const {error} = getPostValidation(req.body);
-    
-    if(error) return res.status(400).send({
-        "message" : error.details[0].message
-    });
+    // Get User university 
+    const user = await User.findOne({ _id: req.user}).select("university");
 
-    const posts = await Post.find({"university":req.body.university});
+    const posts = await Post.find({"university":user.university});
     res.send(posts);
 });
 
