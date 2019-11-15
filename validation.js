@@ -39,6 +39,16 @@ return schema.validate(data);
 
 };
 
+// Get posts Validation
+const getPostValidation = (data) =>{
+    const schema = Joi.object({
+        university: Joi.string()
+            .required()
+    });
+
+    return schema.validate(data);
+};
+
 // Add New Post Validation 
 const addPostValidation = (data) =>{
     const schema = Joi.object({
@@ -56,3 +66,4 @@ return schema.validate(data);
 module.exports.signUpValidation = signUpValidation;
 module.exports.loginValidation  = loginValidation;
 module.exports.addPostValidation  = addPostValidation;
+module.exports.getPostValidation = getPostValidation;

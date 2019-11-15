@@ -18,6 +18,10 @@ const postSchema = new mongoose.Schema({
     date:{
         type: Date,
         default: Date.now
+    },
+    university:{
+        type: String,
+        required: true
     }
 
 },{ collection: 'posts' });

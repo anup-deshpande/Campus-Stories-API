@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken');
 
 module.exports = function(req,res,next){
     const token = req.header('authorization');
-    if(!token) return res.status(401).send('Authorization required');
+    if(!token) return res.status(401).send({
+        "message": 'Authorization required'
+    });
 
     try{
 
@@ -11,6 +13,8 @@ module.exports = function(req,res,next){
         next();
 
     }catch(err){
-        res.status(400).send('Invalid Token');
+        res.status(400).send({
+            "message": 'Invalid Token'
+        });
     }
 }
