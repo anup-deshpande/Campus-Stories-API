@@ -11,7 +11,7 @@ router.get('/',verify,async (req,res) =>{
     // Get User university 
     const user = await User.findOne({ _id: req.user}).select("university");
 
-    const posts = await Post.find({"university":user.university});
+    const posts = await Post.find({"university":user.university}).sort({date: -1});
     res.send(posts);
 });
 
