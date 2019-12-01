@@ -12,6 +12,7 @@ router.get('/',verify,async (req,res) =>{
     const user = await User.findOne({ _id: req.user}).select("university");
 
     const posts = await Post.find({"university":user.university}).sort({date: -1});
+    
     res.send(posts);
 });
 
