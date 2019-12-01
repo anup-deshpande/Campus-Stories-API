@@ -52,7 +52,20 @@ return schema.validate(data);
 
 };
 
+// Delete post Validation
+const deletePostValidation = (data) =>{
+    const schema = Joi.object({
+        id: Joi.string()
+            .required()
+});
+
+return schema.validate(data);
+
+};
+
+
 
 module.exports.signUpValidation = signUpValidation;
 module.exports.loginValidation  = loginValidation;
 module.exports.addPostValidation  = addPostValidation;
+module.exports.deletePostValidation  = deletePostValidation;

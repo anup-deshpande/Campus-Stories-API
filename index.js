@@ -5,7 +5,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Import routes
-const authRoute = require('./routes/auth');
+const loginRoute = require('./routes/loginRoute');
+const userRoute = require('./routes/userRoutes');
 const postRoute = require('./routes/postRoutes');
 
 dotenv.config();
@@ -22,7 +23,8 @@ process.env.DB_CONNECT,{ useNewUrlParser: true , useUnifiedTopology: true },() =
 app.use(express.json());
 
 // Route Middlewares
-app.use('/api/user',authRoute);
+app.use('/api/login',loginRoute);
+app.use('/api/users',userRoute);
 app.use('/api/posts',postRoute);
 
 app.listen(port, () => console.log('Server up and running'));

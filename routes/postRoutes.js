@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../model/User');
 const Post = require('../model/Post');
 const verify = require('./verifyToken');
-const {addPostValidation} = require('../validation');
+const {addPostValidation, deletePostValidation} = require('../validation');
 
 // Get Routes
 // Get posts with university name
@@ -17,7 +17,7 @@ router.get('/',verify,async (req,res) =>{
 
 
 // Post Routes
-router.post('/addPost',verify,async (req,res) =>{
+router.post('/',verify,async (req,res) =>{
     
     //  Validate the input
     const {error} = addPostValidation(req.body);
@@ -53,5 +53,35 @@ router.post('/addPost',verify,async (req,res) =>{
    
 });
 
+
+// Delete post
+router.delete('/',verify,async (req,res) =>{
+    
+    //  Validate the input
+    const {error} = deletePostValidation(req.body);
+    if(error) return res.status(400).send({
+        "message" : error.details[0].message
+    });
+
+    // Delete the post from database if available
+    try{
+        
+        const post = await Post.deleteOne({ _id: req.body.id, author: req.user._id});
+            
+        if (post.deletedCount > 0) {
+            res.send({ "message" : "Post deleted successfully"});    
+        }else{
+            res.status(400).send({ "message" : "Only the Author can delete his/her available posts"});    
+        }
+
+    }
+    catch(err){
+        res.status(400).send({
+            "message" : err.message
+        });
+    }
+     
+   
+});
 
 module.exports = router;
