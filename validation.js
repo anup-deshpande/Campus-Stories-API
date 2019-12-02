@@ -43,7 +43,6 @@ return schema.validate(data);
 const addPostValidation = (data) =>{
     const schema = Joi.object({
         title: Joi.string()
-            .min(4)
             .required(),
         description: Joi.string()
 });
